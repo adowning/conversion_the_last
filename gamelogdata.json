@@ -1,0 +1,105 @@
+[
+    {
+        "id": 1,
+        "time": "2025-09-27 00:14:22.252973",
+        "game_id": 1971,
+        "user_id": 7,
+        "ip": "127.0.0.1      ",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"FreeLevel\":0,\"MonsterHealth\":0,\"freeState\":\"\",\"slotLines\":20,\"slotBet\":1,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":99900,\"afterBalance\":99900,\"bonusWin\":0,\"totalWin\":0,\"winLines\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[11,20,5,11,63],\"reel1\":[\"8\",\"5\",\"8\",\"\"],\"reel2\":[\"7\",\"4\",\"3\",\"\"],\"reel3\":[\"6\",\"7\",\"4\",\"\"],\"reel4\":[\"8\",\"9\",\"8\",\"\"],\"reel5\":[\"6\",\"8\",\"5\",\"\"]}}}",
+        "shop_id": 1
+    },
+    {
+        "id": 2,
+        "time": "2025-12-06 11:13:10.750585",
+        "game_id": 1088,
+        "user_id": 1,
+        "ip": "127.0.0.1      ",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":30,\"slotBet\":0.01,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":999.7,\"afterBalance\":999.7,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":0,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[31,57,5,13,25],\"reel1\":[\"3\",\"4\",\"7\",\"\"],\"reel2\":[\"2\",\"5\",\"6\",\"\"],\"reel3\":[\"4\",\"3\",\"5\",\"\"],\"reel4\":[\"4\",\"0\",\"3\",\"\"],\"reel5\":[\"4\",\"3\",\"6\",\"\"]}}}",
+        "shop_id": 1
+    },
+    {
+        "id": 3,
+        "time": "2025-12-06 11:13:27.838149",
+        "game_id": 1088,
+        "user_id": 1,
+        "ip": "127.0.0.1      ",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":30,\"slotBet\":0.01,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":999.7,\"afterBalance\":999.7,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":0,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[39,33,31,55,53],\"reel1\":[\"4\",\"7\",\"6\",\"\"],\"reel2\":[\"7\",\"2\",\"3\",\"\"],\"reel3\":[\"3\",\"4\",\"7\",\"\"],\"reel4\":[\"7\",\"4\",\"2\",\"\"],\"reel5\":[\"3\",\"5\",\"7\",\"\"]}}}",
+        "shop_id": 1
+    },
+    {
+        "id": 4,
+        "time": "2025-12-06 11:14:31.98691",
+        "game_id": 1088,
+        "user_id": 1,
+        "ip": "127.0.0.1      ",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":30,\"slotBet\":0.01,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":999.7,\"afterBalance\":999.7,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":0,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[3,42,49,6,18],\"reel1\":[\"6\",\"7\",\"4\",\"\"],\"reel2\":[\"3\",\"5\",\"2\",\"\"],\"reel3\":[\"7\",\"6\",\"5\",\"\"],\"reel4\":[\"3\",\"5\",\"7\",\"\"],\"reel5\":[\"7\",\"9\",\"3\",\"\"]}}}",
+        "shop_id": 1
+    },
+    {
+        "id": 5,
+        "time": "2025-12-06 11:23:31.117607",
+        "game_id": 1088,
+        "user_id": 1,
+        "ip": "127.0.0.1      ",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":30,\"slotBet\":0.01,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":999.7,\"afterBalance\":999.7,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":0,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[59,49,49,18,42],\"reel1\":[\"6\",\"3\",\"4\",\"\"],\"reel2\":[\"7\",\"6\",\"5\",\"\"],\"reel3\":[\"7\",\"6\",\"5\",\"\"],\"reel4\":[\"7\",\"9\",\"3\",\"\"],\"reel5\":[\"3\",\"5\",\"2\",\"\"]}}}",
+        "shop_id": 1
+    },
+    {
+        "id": 6,
+        "time": "2025-12-06 11:32:38.099383",
+        "game_id": 1088,
+        "user_id": 1,
+        "ip": "127.0.0.1      ",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":30,\"slotBet\":0.01,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":999.85,\"afterBalance\":999.85,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":0.15,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[56,56,62,51,54],\"reel1\":[\"4\",\"2\",\"5\",\"\"],\"reel2\":[\"4\",\"2\",\"5\",\"\"],\"reel3\":[\"5\",\"8\",\"0\",\"\"],\"reel4\":[\"5\",\"4\",\"3\",\"\"],\"reel5\":[\"5\",\"7\",\"4\",\"\"]}}}",
+        "shop_id": 1
+    },
+    {
+        "id": 1782,
+        "time": "2025-12-06 13:25:09.531873",
+        "game_id": 2178,
+        "user_id": 1,
+        "ip": "127.0.0.1      ",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":40,\"slotBet\":1,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":1060,\"afterBalance\":1060,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":100,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[32,88,3,39,56],\"reel1\":[\"4\",\"4\",\"5\",\"6\",\"\"],\"reel2\":[\"2\",\"4\",\"5\",\"6\",\"\"],\"reel3\":[\"5\",\"4\",\"7\",\"6\",\"\"],\"reel4\":[\"4\",\"5\",\"6\",\"4\",\"\"],\"reel5\":[\"1\",\"2\",\"3\",\"5\",\"\"]}}}",
+        "shop_id": 1
+    },
+    {
+        "game_id": 2180,
+        "user_id": 8,
+        "ip": "127.0.0.1",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":30,\"slotBet\":1,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":99970,\"afterBalance\":99970,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":0,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[56,45,21,36,31],\"reel1\":[\"4\",\"2\",\"5\",\"\"],\"reel2\":[\"8\",\"7\",\"4\",\"\"],\"reel3\":[\"8\",\"2\",\"3\",\"\"],\"reel4\":[\"8\",\"9\",\"2\",\"\"],\"reel5\":[\"3\",\"4\",\"7\",\"\"]}}}",
+        "shop_id": 1,
+        "time": "2025-12-07 01:57:24"
+    },
+    {
+        "game_id": 2180,
+        "user_id": 8,
+        "ip": "127.0.0.1",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":30,\"slotBet\":1,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":99945,\"afterBalance\":99945,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":5,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[1,26,3,7,42],\"reel1\":[\"3\",\"8\",\"6\",\"\"],\"reel2\":[\"3\",\"6\",\"8\",\"\"],\"reel3\":[\"6\",\"7\",\"4\",\"\"],\"reel4\":[\"5\",\"7\",\"8\",\"\"],\"reel5\":[\"3\",\"5\",\"2\",\"\"]}}}",
+        "shop_id": 1,
+        "time": "2025-12-07 01:57:25"
+    },
+    {
+        "game_id": 2180,
+        "user_id": 8,
+        "ip": "127.0.0.1",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":30,\"slotBet\":1,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":99915,\"afterBalance\":99915,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":0,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[35,6,4,43,52],\"reel1\":[\"3\",\"8\",\"9\",\"\"],\"reel2\":[\"3\",\"5\",\"7\",\"\"],\"reel3\":[\"7\",\"4\",\"3\",\"\"],\"reel4\":[\"5\",\"2\",\"8\",\"\"],\"reel5\":[\"4\",\"3\",\"5\",\"\"]}}}",
+        "shop_id": 1,
+        "time": "2025-12-07 01:57:25"
+    },
+    {
+        "game_id": 2180,
+        "user_id": 8,
+        "ip": "127.0.0.1",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":30,\"slotBet\":1,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":99915,\"afterBalance\":99915,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":30,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[3,54,50,50,60],\"reel1\":[\"6\",\"7\",\"4\",\"\"],\"reel2\":[\"5\",\"7\",\"4\",\"\"],\"reel3\":[\"6\",\"5\",\"4\",\"\"],\"reel4\":[\"6\",\"5\",\"4\",\"\"],\"reel5\":[\"3\",\"4\",\"5\",\"\"]}}}",
+        "shop_id": 1,
+        "time": "2025-12-07 01:57:25"
+    },
+    {
+        "game_id": 2180,
+        "user_id": 8,
+        "ip": "127.0.0.1",
+        "str": "{\"responseEvent\":\"spin\",\"responseType\":\"bet\",\"serverResponse\":{\"BonusSymbol\":-1,\"slotLines\":30,\"slotBet\":1,\"totalFreeGames\":0,\"currentFreeGames\":0,\"Balance\":99885,\"afterBalance\":99885,\"bonusWin\":0,\"freeStartWin\":0,\"totalWin\":0,\"winLines\":[],\"bonusInfo\":[],\"Jackpots\":[],\"reelsSymbols\":{\"rp\":[29,33,43,33,44],\"reel1\":[\"7\",\"5\",\"3\",\"\"],\"reel2\":[\"7\",\"2\",\"3\",\"\"],\"reel3\":[\"5\",\"2\",\"8\",\"\"],\"reel4\":[\"7\",\"2\",\"3\",\"\"],\"reel5\":[\"2\",\"8\",\"7\",\"\"]}}}",
+        "shop_id": 1,
+        "time": "2025-12-07 01:57:25"
+    }
+]
