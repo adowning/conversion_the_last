@@ -446,13 +446,76 @@ export class SlotSettings {
   }
 
   public SetBank(slotState: string = '', sum: number, slotEvent: string = ''): any {
-      // Simplified
       if (this.isBonusStart || slotState == 'bonus' || slotState == 'freespin' || slotState == 'respin') {
           slotState = 'bonus';
       } else {
           slotState = '';
       }
-      this.Bank += sum * this.CurrentDenom;
+      if (this.GetBank(slotState) + sum < 0) {
+          this.InternalError('Bank_   ' + sum + '  CurrentBank_ ' + this.GetBank(slotState) + ' CurrentState_ ' + slotState + ' Trigger_ ' + (this.GetBank(slotState) + sum));
+      }
+
+      let sumOrig = sum * this.CurrentDenom;
+      const game = this.game;
+      let bankBonusSum = 0;
+
+      if (sumOrig > 0 && slotEvent == 'bet') {
+          this.toGameBanks = 0;
+          this.toSlotJackBanks = 0;
+          this.toSysJackBanks = 0;
+          this.betProfit = 0;
+
+          const prc = this.GetPercent();
+          let prc_b = 10;
+          if (prc <= prc_b) {
+              prc_b = 0;
+          }
+
+          const count_balance = this.count_balance;
+          const gameBet = sumOrig / this.GetPercent() * 100;
+
+          if (count_balance < gameBet && count_balance > 0) {
+              const firstBid = count_balance;
+              let secondBid = gameBet - firstBid;
+              if (this.betRemains0 !== undefined) {
+                  secondBid = this.betRemains0;
+              }
+              const bankSum = firstBid / 100 * this.GetPercent();
+              sumOrig = bankSum + secondBid;
+              bankBonusSum = firstBid / 100 * prc_b;
+          } else if (count_balance > 0) {
+              bankBonusSum = gameBet / 100 * prc_b;
+          }
+
+          for (let i = 0; i < this.jpgs.length; i++) {
+              if (!this.jpgPercentZero) {
+                  if (count_balance < gameBet && count_balance > 0) {
+                      this.toSlotJackBanks += (count_balance / 100 * this.jpgs[i].percent);
+                  } else if (count_balance > 0) {
+                      this.toSlotJackBanks += (gameBet / 100 * this.jpgs[i].percent);
+                  }
+              }
+          }
+
+          this.toGameBanks = sumOrig;
+          this.betProfit = gameBet - this.toGameBanks - this.toSlotJackBanks - this.toSysJackBanks;
+      }
+
+      if (sumOrig > 0) {
+          this.toGameBanks = sumOrig;
+      }
+
+      if (bankBonusSum > 0) {
+          sumOrig -= bankBonusSum;
+          (this.game as any).set_gamebank(bankBonusSum, 'inc', 'bonus');
+      }
+
+      if (sumOrig == 0 && slotEvent == 'bet' && this.betRemains !== undefined) {
+          sumOrig = this.betRemains;
+      }
+
+      (this.game as any).set_gamebank(sumOrig, 'inc', slotState);
+      // this.game.save(); // Stateless
       return this.game;
   }
 
@@ -462,14 +525,64 @@ export class SlotSettings {
       }
       const sumOrig = sum * this.CurrentDenom;
 
-      // Update balance logic ported from PHP
       if (sumOrig < 0 && slotEvent == 'bet') {
-          // Logic for count_balance updates...
-          // Simplified for porting:
-          // this.user.count_balance = this.user.updateCountBalance(sumOrig, this.count_balance);
-          // In stateless model, we just update the user properties.
+          const user = this.user;
+          if (user.count_balance == 0) {
+              const remains: number[] = [];
+              this.betRemains = 0;
+              const sm = Math.abs(sumOrig);
+              if (user.address < sm && user.address > 0) {
+                  remains.push(sm - user.address);
+              }
+              for (let i = 0; i < remains.length; i++) {
+                  if (this.betRemains < remains[i]) {
+                      this.betRemains = remains[i];
+                  }
+              }
+          }
+
+          if (user.count_balance > 0 && user.count_balance < Math.abs(sumOrig)) {
+              const remains0: number[] = [];
+              const sm = Math.abs(sumOrig);
+              const tmpSum = sm - user.count_balance;
+              this.betRemains0 = tmpSum;
+              if (user.address > 0) {
+                  this.betRemains0 = 0;
+                  if (user.address < tmpSum && user.address > 0) {
+                      remains0.push(tmpSum - user.address);
+                  }
+                  for (let i = 0; i < remains0.length; i++) {
+                      if (this.betRemains0 < remains0[i]) {
+                          this.betRemains0 = remains0[i];
+                      }
+                  }
+              }
+          }
+
+          const sum0 = Math.abs(sumOrig);
+          if (user.count_balance == 0) {
+              const sm = Math.abs(sumOrig);
+              if (user.address < sm && user.address > 0) {
+                  user.address = 0;
+              } else if (user.address > 0) {
+                  user.address -= sm;
+              }
+          } else if (user.count_balance > 0 && user.count_balance < sum0) {
+              const sm = sum0 - user.count_balance;
+              if (user.address < sm && user.address > 0) {
+                  user.address = 0;
+              } else if (user.address > 0) {
+                  user.address -= sm;
+              }
+          }
+
+          this.user.count_balance = this.user.updateCountBalance(sumOrig, this.count_balance);
+          this.user.count_balance = this.FormatFloat(this.user.count_balance);
       }
-      this.user.balance = Number(this.user.balance) + sumOrig;
+
+      this.user.increment('balance', sumOrig);
+      this.user.balance = this.FormatFloat(this.user.balance);
+      // this.user.save();
       return this.user;
   }
 
@@ -611,7 +724,47 @@ export class SlotSettings {
   }
 
   public getNewSpin(game: any, spinWin: number = 0, bonusWin: number = 0, lines: number, garantType: string = 'bet'): any {
-      // Simplified
+      let curField = 10;
+      switch( lines )
+      {
+          case 10: curField = 10; break;
+          case 9: case 8: curField = 9; break;
+          case 7: case 6: curField = 7; break;
+          case 5: case 4: curField = 5; break;
+          case 3: case 2: curField = 3; break;
+          case 1: curField = 1; break;
+          default: curField = 10; break;
+      }
+
+      let pref = '';
+      if( garantType != 'bet' )
+      {
+          pref = '_bonus';
+      }
+      else
+      {
+          pref = '';
+      }
+
+      let win: any[] = [];
+
+      if( spinWin )
+      {
+          if (game.game_win && game.game_win['winline' + pref + curField]) {
+              win = (game.game_win['winline' + pref + curField] as string).split(',');
+          }
+      }
+      if( bonusWin )
+      {
+          if (game.game_win && game.game_win['winbonus' + pref + curField]) {
+              win = (game.game_win['winbonus' + pref + curField] as string).split(',');
+          }
+      }
+
+      if (win.length > 0) {
+          const number = PhpHelpers.rand(0, win.length - 1);
+          return win[number];
+      }
       return 0;
   }
 
