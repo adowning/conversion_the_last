@@ -117,7 +117,7 @@ export class SlotSettings {
 
     this.MaxWin = this.shop.max_win;
     this.increaseRTP = 1;
-    this.CurrentDenom = this.game.denomination;
+    this.CurrentDenom = Number(this.game.getAttribute('denomination'));
     this.scaleMode = 0;
     this.numFloat = 0;
 
@@ -182,7 +182,7 @@ export class SlotSettings {
     this.CurrentDenomination = this.Denominations[0];
     this.slotFreeCount = [0, 0, 0, 8, 8, 8];
     this.slotFreeMpl = 1;
-    this.slotViewState = (this.game.slotViewState == '' ? 'Normal' : this.game.slotViewState);
+    this.slotViewState = (this.game.getAttribute('slotViewState') == '' ? 'Normal' : this.game.getAttribute('slotViewState'));
     this.hideButtons = [];
 
     this.jpgs = [];
@@ -196,14 +196,15 @@ export class SlotSettings {
     this.slotJackpot = [];
     for( let jp = 1; jp <= 4; jp++ )
     {
-        this.slotJackpot.push((this.game as any)['jp_' + jp]);
-        this.slotJackPercent.push((this.game as any)['jp_' + jp + '_percent']);
+        this.slotJackpot.push(this.game.getAttribute('jp_' + jp));
+        this.slotJackPercent.push(this.game.getAttribute('jp_' + jp + '_percent'));
     }
 
     this.Line = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
     this.gameLine = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-    this.Bet = this.game.bet ? this.game.bet.split(',') : [];
+    const betStr = this.game.getAttribute('bet');
+    this.Bet = betStr ? betStr.split(',') : [];
     this.Balance = this.user.balance;
     this.SymbolGame = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
     this.Bank = (this.game as any).get_gamebank();
@@ -211,8 +212,8 @@ export class SlotSettings {
     this.Bank = bankObj.slots + bankObj.bonus + bankObj.fish + bankObj.table_bank + bankObj.little;
 
     this.Percent = this.shop.percent;
-    this.WinGamble = this.game.rezerv;
-    this.slotDBId = this.game.id.toString();
+    this.WinGamble = this.game.getAttribute('rezerv');
+    this.slotDBId = this.game.getAttribute('id').toString();
     this.slotCurrency = this.shop.currency;
     this.count_balance = this.user.count_balance;
 
@@ -247,12 +248,14 @@ export class SlotSettings {
         }
     }
 
-    if( !this.game.advanced || this.game.advanced.length <= 0 )
+    let advanced = this.game.getAttribute('advanced');
+    if( !advanced || advanced.length <= 0 )
     {
-        (this.game as any).advanced = JSON.stringify({});
+        advanced = JSON.stringify({});
+        this.game.setAttribute('advanced', advanced);
     }
     try {
-        this.gameDataStatic = JSON.parse(this.game.advanced);
+        this.gameDataStatic = JSON.parse(advanced);
     } catch(e) {
         this.gameDataStatic = {};
     }
@@ -271,10 +274,10 @@ export class SlotSettings {
 
   public is_active(): boolean {
       if (this.isStateless) return true;
-      if (this.game && this.shop && this.user && (!this.game.view || this.shop.is_blocked || this.user.is_blocked || this.user.status == 'Banned')) {
+      if (this.game && this.shop && this.user && (!this.game.getAttribute('view') || this.shop.is_blocked || this.user.is_blocked || this.user.status == 'Banned')) {
           return false;
       }
-      if (!this.game.view) return false;
+      if (!this.game.getAttribute('view')) return false;
       if (this.shop.is_blocked) return false;
       if (this.user.is_blocked) return false;
       if (this.user.status == 'Banned') return false;
@@ -343,7 +346,7 @@ export class SlotSettings {
           }
       }
       this.shuffle(allRate);
-      if ((this.game as any).stat_in < ((this.game as any).stat_out + (allRate[0] * this.AllBet))) {
+      if (Number(this.game.getAttribute('stat_in')) < (Number(this.game.getAttribute('stat_out')) + (allRate[0] * this.AllBet))) {
           allRate[0] = 0;
       }
       return allRate[0];
@@ -358,7 +361,7 @@ export class SlotSettings {
   }
 
   public SaveGameDataStatic(): void {
-      (this.game as any).advanced = JSON.stringify(this.gameDataStatic);
+      this.game.setAttribute('advanced', JSON.stringify(this.gameDataStatic));
   }
 
   public SetGameDataStatic(key: string, value: any): void {
@@ -623,8 +626,8 @@ export class SlotSettings {
       }
 
       let rtpRange = 0;
-      const statIn = (this.game as any).stat_in;
-      const statOut = (this.game as any).stat_out;
+      const statIn = Number(this.game.getAttribute('stat_in'));
+      const statOut = Number(this.game.getAttribute('stat_out'));
 
       if (statIn > 0) {
           rtpRange = statOut / statIn * 100;
@@ -847,7 +850,7 @@ export class SlotSettings {
 
   private shuffle(array: any[]) {
       for (let i = array.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
+          const j = PhpHelpers.rand(0, i);
           [array[i], array[j]] = [array[j], array[i]];
       }
   }
