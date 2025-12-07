@@ -483,7 +483,6 @@ export class SlotSettings {
   }
 
   public GetSpinSettings(garantType: string = 'bet', bet: number, lines: number): any[] {
-      // Simplified
       let curField = 10;
       switch(lines) {
           case 10: curField = 10; break;
@@ -495,12 +494,120 @@ export class SlotSettings {
           default: curField = 10; break;
       }
 
+      let pref = '';
+      if( garantType != 'bet' ) {
+          pref = '_bonus';
+      } else {
+          pref = '';
+      }
+
       this.AllBet = bet * lines;
 
-      // ... Logic regarding RTP control ...
-      // For now returning basic win logic
-      let winLimit = this.GetBank(garantType);
-      return ['win', winLimit];
+      const linesPercentConfigSpin = this.game.get_lines_percent_config('spin');
+      const linesPercentConfigBonus = this.game.get_lines_percent_config('bonus');
+      const currentPercent = this.shop.percent;
+
+      let currentSpinWinChance = 0;
+      let currentBonusWinChance = 0;
+      let percentLevel = '';
+
+      const spinConfig = linesPercentConfigSpin['line' + curField + pref];
+      if (spinConfig) {
+          for (const k in spinConfig) {
+              const v = spinConfig[k];
+              const l = k.split('_');
+              const l0 = parseInt(l[0]);
+              const l1 = parseInt(l[1]);
+              if (l0 <= currentPercent && currentPercent <= l1) {
+                  percentLevel = k;
+                  break;
+              }
+          }
+      }
+
+      if (percentLevel != '' && linesPercentConfigSpin['line' + curField + pref]) {
+          currentSpinWinChance = linesPercentConfigSpin['line' + curField + pref][percentLevel];
+          currentBonusWinChance = linesPercentConfigBonus['line' + curField + pref][percentLevel];
+      }
+
+      const RtpControlCount = 200;
+      if (!this.HasGameDataStatic('SpinWinLimit')) {
+          this.SetGameDataStatic('SpinWinLimit', 0);
+      }
+      if (!this.HasGameDataStatic('RtpControlCount')) {
+          this.SetGameDataStatic('RtpControlCount', RtpControlCount);
+      }
+
+      let rtpRange = 0;
+      const statIn = (this.game as any).stat_in;
+      const statOut = (this.game as any).stat_out;
+
+      if (statIn > 0) {
+          rtpRange = statOut / statIn * 100;
+      } else {
+          rtpRange = 0;
+      }
+
+      if (this.GetGameDataStatic('RtpControlCount') == 0) {
+          if (currentPercent + PhpHelpers.rand(1, 2) < rtpRange && this.GetGameDataStatic('SpinWinLimit') <= 0) {
+              this.SetGameDataStatic('SpinWinLimit', PhpHelpers.rand(25, 50));
+          }
+          if (pref == '' && this.GetGameDataStatic('SpinWinLimit') > 0) {
+              currentBonusWinChance = 5000;
+              currentSpinWinChance = 20;
+              this.MaxWin = PhpHelpers.rand(1, 5);
+              if (rtpRange < (currentPercent - 1)) {
+                  this.SetGameDataStatic('SpinWinLimit', 0);
+                  this.SetGameDataStatic('RtpControlCount', this.GetGameDataStatic('RtpControlCount') - 1);
+              }
+          }
+      } else if (this.GetGameDataStatic('RtpControlCount') < 0) {
+          if (currentPercent + PhpHelpers.rand(1, 2) < rtpRange && this.GetGameDataStatic('SpinWinLimit') <= 0) {
+              this.SetGameDataStatic('SpinWinLimit', PhpHelpers.rand(25, 50));
+          }
+          this.SetGameDataStatic('RtpControlCount', this.GetGameDataStatic('RtpControlCount') - 1);
+          if (pref == '' && this.GetGameDataStatic('SpinWinLimit') > 0) {
+              currentBonusWinChance = 5000;
+              currentSpinWinChance = 20;
+              this.MaxWin = PhpHelpers.rand(1, 5);
+              if (rtpRange < (currentPercent - 1)) {
+                  this.SetGameDataStatic('SpinWinLimit', 0);
+              }
+          }
+          if (this.GetGameDataStatic('RtpControlCount') < (-1 * RtpControlCount) && currentPercent - 1 <= rtpRange && rtpRange <= (currentPercent + 2)) {
+              this.SetGameDataStatic('RtpControlCount', RtpControlCount);
+          }
+      } else {
+          this.SetGameDataStatic('RtpControlCount', this.GetGameDataStatic('RtpControlCount') - 1);
+      }
+
+      const bonusWin = PhpHelpers.rand(1, currentBonusWinChance);
+      const spinWin = PhpHelpers.rand(1, currentSpinWinChance);
+
+      let returnVal: any[] = ['none', 0];
+
+      if (bonusWin == 1 && this.slotBonus) {
+          this.isBonusStart = true;
+          garantType = 'bonus';
+          let winLimit = this.GetBank(garantType);
+          returnVal = ['bonus', winLimit];
+          if (statIn < (this.CheckBonusWin() * bet + statOut) || winLimit < (this.CheckBonusWin() * bet)) {
+              returnVal = ['none', 0];
+          }
+      } else if (spinWin == 1) {
+          let winLimit = this.GetBank(garantType);
+          returnVal = ['win', winLimit];
+      }
+
+      if (garantType == 'bet' && this.GetBalance() <= (2 / this.CurrentDenom)) {
+          const randomPush = PhpHelpers.rand(1, 10);
+          if (randomPush == 1) {
+              let winLimit = this.GetBank('');
+              returnVal = ['win', winLimit];
+          }
+      }
+
+      return returnVal;
   }
 
   public getNewSpin(game: any, spinWin: number = 0, bonusWin: number = 0, lines: number, garantType: string = 'bet'): any {
