@@ -506,6 +506,40 @@ export class SlotSettings {
     return returnVal;
   }
 
+  public getNewSpin(game: any, spinWin: number = 0, bonusWin: number = 0, lines: number, garantType: string = 'bet'): any {
+    let curField = 10;
+    switch (lines) {
+        case 10: curField = 10; break;
+        case 9: case 8: curField = 9; break;
+        case 7: case 6: curField = 7; break;
+        case 5: case 4: curField = 5; break;
+        case 3: case 2: curField = 3; break;
+        case 1: curField = 1; break;
+        default: curField = 10; break;
+    }
+    let pref = '';
+    if (garantType != 'bet') {
+        pref = '_bonus';
+    }
+    let win: any[] = [];
+    if (spinWin) {
+        let val = game.game_win['winline' + pref + curField];
+        if (val) {
+            win = String(val).split(',');
+        }
+    }
+    if (bonusWin) {
+        let val = game.game_win['winbonus' + pref + curField];
+        if (val) {
+            win = String(val).split(',');
+        }
+    }
+    if (win.length == 0) return 0;
+
+    let number = PhpHelpers.rand(0, win.length - 1);
+    return win[number];
+  }
+
   public GetRandomPay(): number {
     let allRate: number[] = [];
     for (let key in this.Paytable) {
