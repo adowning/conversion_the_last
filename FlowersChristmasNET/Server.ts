@@ -96,15 +96,15 @@ export class Server {
                         curReels += ('&rs.i1.r.i3.syms=SYM' + reels.reel4[0] + '%2CSYM' + reels.reel4[1] + '%2CSYM' + reels.reel4[2] + '');
                         curReels += ('&rs.i1.r.i4.syms=SYM' + reels.reel5[0] + '%2CSYM' + reels.reel5[1] + '%2CSYM' + reels.reel5[2] + '');
                         curReels += ('&rs.i0.r.i0.pos=' + reels.rp[0]);
-                        curReels += ('&rs.i0.r.i1.pos=' + reels.rp[0]);
-                        curReels += ('&rs.i0.r.i2.pos=' + reels.rp[0]);
-                        curReels += ('&rs.i0.r.i3.pos=' + reels.rp[0]);
-                        curReels += ('&rs.i0.r.i4.pos=' + reels.rp[0]);
+                        curReels += ('&rs.i0.r.i1.pos=' + reels.rp[1]);
+                        curReels += ('&rs.i0.r.i2.pos=' + reels.rp[2]);
+                        curReels += ('&rs.i0.r.i3.pos=' + reels.rp[3]);
+                        curReels += ('&rs.i0.r.i4.pos=' + reels.rp[4]);
                         curReels += ('&rs.i1.r.i0.pos=' + reels.rp[0]);
-                        curReels += ('&rs.i1.r.i1.pos=' + reels.rp[0]);
-                        curReels += ('&rs.i1.r.i2.pos=' + reels.rp[0]);
-                        curReels += ('&rs.i1.r.i3.pos=' + reels.rp[0]);
-                        curReels += ('&rs.i1.r.i4.pos=' + reels.rp[0]);
+                        curReels += ('&rs.i1.r.i1.pos=' + reels.rp[1]);
+                        curReels += ('&rs.i1.r.i2.pos=' + reels.rp[2]);
+                        curReels += ('&rs.i1.r.i3.pos=' + reels.rp[3]);
+                        curReels += ('&rs.i1.r.i4.pos=' + reels.rp[4]);
                     } else {
                         curReels = '&rs.i0.r.i0.syms=SYM' + PhpHelpers.rand(1, 7) + '%2CSYM' + PhpHelpers.rand(1, 7) + '%2CSYM' + PhpHelpers.rand(1, 7) + '%2CSYM' + PhpHelpers.rand(1, 7) + '';
                         curReels += ('&rs.i0.r.i1.syms=SYM' + PhpHelpers.rand(1, 7) + '%2CSYM' + PhpHelpers.rand(1, 7) + '%2CSYM' + PhpHelpers.rand(1, 7) + '%2CSYM' + PhpHelpers.rand(1, 7) + '');
