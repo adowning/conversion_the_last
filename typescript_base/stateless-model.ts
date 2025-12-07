@@ -25,8 +25,11 @@ export class StatelessModel {
   // Emulate PHP's magic __get
   // Note: In strict TS, you should use getAttribute('key'), but for specific known keys
   // in subclasses, we will add explicit getters.
-  public get(key: string): any {
-    return this.getAttribute(key);
+  public get(key: string): any;
+  public get(): this[];
+  public get(key?: string): any {
+    if (key !== undefined) return this.getAttribute(key);
+    return [this];
   }
 
   public set(key: string, value: any): void {
@@ -74,10 +77,6 @@ export class StatelessModel {
 
   public first(): this {
     return this;
-  }
-
-  public get(): this[] {
-    return [this];
   }
 
   public toArray(): Record<string, any> {

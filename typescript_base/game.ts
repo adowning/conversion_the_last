@@ -238,6 +238,9 @@ export class Game extends StatelessModel {
   get advanced() {
     return this.getAttribute("advanced");
   }
+  set advanced(val: any) {
+    this.setAttribute("advanced", val);
+  }
   get stat_in() {
     return Number(this.getAttribute("stat_in"));
   }
