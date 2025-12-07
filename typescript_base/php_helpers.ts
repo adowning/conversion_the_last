@@ -15,4 +15,16 @@ export class PhpHelpers {
     static json_encode(value: any): string {
         return JSON.stringify(value);
     }
+
+    // PHP shuffle() - in-place shuffle
+    static shuffle(array: any[]): boolean {
+        let currentIndex = array.length,  randomIndex;
+        while (currentIndex != 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+        }
+        return true;
+    }
 }
