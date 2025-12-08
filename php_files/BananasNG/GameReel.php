@@ -1,5 +1,5 @@
 <?php 
-namespace VanguardLTE\Games\SantaVSRudolphNET
+namespace App\Games\BananasNG
 {
     class GameReel
     {
@@ -21,7 +21,7 @@ namespace VanguardLTE\Games\SantaVSRudolphNET
         ];
         public function __construct()
         {
-            $temp = file(base_path() . '/app/Games/SantaVSRudolphNET/reels.txt');
+            $temp = file(base_path() . '/app/Games/BananasNG/reels.txt');
             foreach( $temp as $str ) 
             {
                 $str = explode('=', $str);
