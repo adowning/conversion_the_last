@@ -674,7 +674,62 @@ export class SlotSettings {
     }
 
     public getNewSpin(game: any, spinWin: any = 0, bonusWin: any = 0, lines: any, garantType: string = 'bet'): string {
-        return '0';
+        let curField = 10;
+        switch( lines )
+        {
+            case 10:
+                curField = 10;
+                break;
+            case 9:
+            case 8:
+                curField = 9;
+                break;
+            case 7:
+            case 6:
+                curField = 7;
+                break;
+            case 5:
+            case 4:
+                curField = 5;
+                break;
+            case 3:
+            case 2:
+                curField = 3;
+                break;
+            case 1:
+                curField = 1;
+                break;
+            default:
+                curField = 10;
+                break;
+        }
+        let pref = '';
+        if( garantType != 'bet' )
+        {
+            pref = '_bonus';
+        }
+        else
+        {
+            pref = '';
+        }
+        let win: string[] = [];
+        if( spinWin )
+        {
+            if (game.game_win && game.game_win['winline' + pref + curField]) {
+                win = game.game_win['winline' + pref + curField].split(',');
+            }
+        }
+        if( bonusWin )
+        {
+            if (game.game_win && game.game_win['winbonus' + pref + curField]) {
+                win = game.game_win['winbonus' + pref + curField].split(',');
+            }
+        }
+
+        if (win.length == 0) return '0';
+
+        const number = PhpHelpers.rand(0, win.length - 1);
+        return win[number];
     }
 
     public GetRandomScatterPos(rp: number[]): number {
